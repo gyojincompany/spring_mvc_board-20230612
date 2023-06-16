@@ -53,4 +53,28 @@ public class BoardController {
 		
 		return "content_view";
 	}
+	
+	@RequestMapping(value = "/modify_form")
+	public String modify_form(HttpServletRequest request, Model model) {
+		
+		BoardDao boardDao = new BoardDao();
+		BoardDto boardDto = boardDao.view(request.getParameter("bid"));
+		
+		model.addAttribute("boardDto", boardDto);
+		
+		return "modify_form";
+	}
+	
+	@RequestMapping(value = "/modify")
+	public String modify(HttpServletRequest request) {
+		
+		String btitle = request.getParameter("btitle");
+		String bcontent = request.getParameter("bcontent");
+		String bid = request.getParameter("bid");
+		
+		BoardDao boardDao = new BoardDao();
+		boardDao.modify(btitle, bcontent, bid);
+		
+		return "redirect:list";
+	}
 }
