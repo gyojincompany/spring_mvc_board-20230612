@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,15 +18,15 @@
 			<th>등록일</th>
 			<th>조회수</th>
 		</tr>
-		
+		<c:forEach items="${list}" var="boardDto">
 		<tr>
-			<td>4</td>
-			<td>안녕하세요!!</td>
-			<td>tiger</td>
-			<td>2023-06-16</td>
-			<td>0</td>
+			<td>${boardDto.bid }</td>
+			<td>${boardDto.btitle }</td>
+			<td>${boardDto.bname }</td>
+			<td>${boardDto.bdate }</td>
+			<td>${boardDto.bhit }</td>
 		</tr>
-		
+		</c:forEach>
 		<tr>
 			<td colspan="5">
 			<input type="button" value="글쓰기" onclick="javascript:window.location='write_form'">

@@ -29,7 +29,7 @@ public class BoardController {
 		BoardDao boardDao = new BoardDao();
 		boardDao.write(bname, btitle, bcontent);
 		
-		return "";
+		return "redirect:list";
 	}
 	
 	@RequestMapping(value = "/list")
