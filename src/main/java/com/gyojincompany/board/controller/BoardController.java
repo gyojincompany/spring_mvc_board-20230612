@@ -39,6 +39,7 @@ public class BoardController {
 		ArrayList<BoardDto> boardDtos = boardDao.list();
 		
 		model.addAttribute("list", boardDtos);
+		model.addAttribute("total", boardDtos.size());
 		
 		return "list";
 	}
@@ -48,6 +49,8 @@ public class BoardController {
 		
 		BoardDao boardDao = new BoardDao();
 		BoardDto boardDto = boardDao.view(request.getParameter("bid"));
+		boardDao.uphit(request.getParameter("bid"));
+		
 		
 		model.addAttribute("boardDto", boardDto);
 		

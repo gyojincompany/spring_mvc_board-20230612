@@ -194,5 +194,10 @@ public class BoardDao {
 		}
 		
 	}
+	
+	public void uphit(String bid) {
+		//update
+		//UPDATE mvc_board SET bhit=bhit+1 WHERE bid=?
+	}
 
 }
