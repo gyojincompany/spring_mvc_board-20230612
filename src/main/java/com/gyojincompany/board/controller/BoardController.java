@@ -1,11 +1,15 @@
 package com.gyojincompany.board.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.gyojincompany.board.dao.BoardDao;
+import com.gyojincompany.board.dto.BoardDto;
 
 @Controller
 public class BoardController {
@@ -26,5 +30,16 @@ public class BoardController {
 		boardDao.write(bname, btitle, bcontent);
 		
 		return "";
+	}
+	
+	@RequestMapping(value = "/list")
+	public String list(Model model) {
+		
+		BoardDao boardDao = new BoardDao();
+		ArrayList<BoardDto> boardDtos = boardDao.list();
+		
+		model.addAttribute("list", boardDtos);
+		
+		return "list";
 	}
 }
