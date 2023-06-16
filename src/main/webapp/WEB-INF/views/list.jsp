@@ -21,7 +21,9 @@
 		<c:forEach items="${list}" var="boardDto">
 		<tr>
 			<td>${boardDto.bid }</td>
-			<td>${boardDto.btitle }</td>
+			<td>
+			<a href="content_view?bid=${boardDto.bid }">${boardDto.btitle }</a>
+			</td>
 			<td>${boardDto.bname }</td>
 			<td>${boardDto.bdate }</td>
 			<td>${boardDto.bhit }</td>

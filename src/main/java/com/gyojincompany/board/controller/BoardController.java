@@ -42,4 +42,15 @@ public class BoardController {
 		
 		return "list";
 	}
+	
+	@RequestMapping(value = "/content_view")
+	public String content_view(HttpServletRequest request, Model model) { 
+		
+		BoardDao boardDao = new BoardDao();
+		BoardDto boardDto = boardDao.view(request.getParameter("bid"));
+		
+		model.addAttribute("boardDto", boardDto);
+		
+		return "content_view";
+	}
 }
