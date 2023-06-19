@@ -49,7 +49,7 @@ public class BoardController {
 		
 		BoardDao boardDao = new BoardDao();
 		BoardDto boardDto = boardDao.view(request.getParameter("bid"));
-		boardDao.uphit(request.getParameter("bid"));
+//		boardDao.uphit(request.getParameter("bid"));
 		
 		
 		model.addAttribute("boardDto", boardDto);
@@ -80,4 +80,19 @@ public class BoardController {
 		
 		return "redirect:list";
 	}
+	
+	@RequestMapping(value = "/delete")
+	public String delete(HttpServletRequest request) {
+		
+		BoardDao boardDao = new BoardDao();
+		boardDao.delete(request.getParameter("bid"));
+		
+		return "redirect:list";
+	}
+	
+	
+	
+	
+	
+	
 }

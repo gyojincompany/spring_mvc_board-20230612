@@ -114,6 +114,8 @@ public class BoardDao {
 	
 	public BoardDto view(String cid) {
 		
+		uphit(cid);
+		
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -195,9 +197,67 @@ public class BoardDao {
 		
 	}
 	
+	public void delete(String bid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			String sql = "DELETE FROM mvc_board WHERE bid=? ";
+			
+			pstmt = conn.prepareStatement(sql);			
+			
+			pstmt.setString(1, bid);
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	public void uphit(String bid) {
 		//update
 		//UPDATE mvc_board SET bhit=bhit+1 WHERE bid=?
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			conn = dataSource.getConnection();
+			String sql = "UPDATE mvc_board SET bhit=bhit+1 WHERE bid=?";
+			
+			pstmt = conn.prepareStatement(sql);		
+						
+			pstmt.setString(1, bid);
+			
+			pstmt.executeUpdate();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) {
+					pstmt.close();
+				}
+				if(conn != null) {
+					conn.close();
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
