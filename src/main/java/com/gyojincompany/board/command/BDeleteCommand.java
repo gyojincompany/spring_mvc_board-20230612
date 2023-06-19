@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 
 import com.gyojincompany.board.dao.BoardDao;
 
-public class BDeleteCommand {
+public class BDeleteCommand implements BCommand {
 	
 	public void execute(Model model) {
 		

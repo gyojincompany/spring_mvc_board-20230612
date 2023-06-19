@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import com.gyojincompany.board.dao.BoardDao;
 import com.gyojincompany.board.dto.BoardDto;
 
-public class BListCommand {
+public class BListCommand implements BCommand{
 	
 	public void execute(Model model) {
 		BoardDao boardDao = new BoardDao();

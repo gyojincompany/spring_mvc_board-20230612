@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gyojincompany.board.command.BCommand;
 import com.gyojincompany.board.command.BContentCommand;
 import com.gyojincompany.board.command.BDeleteCommand;
 import com.gyojincompany.board.command.BListCommand;
@@ -19,6 +20,8 @@ import com.gyojincompany.board.dto.BoardDto;
 @Controller
 public class BoardController {
 	
+	BCommand command = null;
+	
 	@RequestMapping(value = "/write_form")
 	public String write_form() {
 		return "write_form";
@@ -29,7 +32,7 @@ public class BoardController {
 		
 		model.addAttribute("request", request);
 		
-		BWriteCommand command = new BWriteCommand();
+		command = new BWriteCommand();
 		command.execute(model);		
 		
 		return "redirect:list";
@@ -38,7 +41,7 @@ public class BoardController {
 	@RequestMapping(value = "/list")
 	public String list(Model model) {
 		
-		BListCommand command = new BListCommand();
+		command = new BListCommand();
 		command.execute(model);
 		
 		return "list";
@@ -49,7 +52,7 @@ public class BoardController {
 		
 		model.addAttribute("request", request);
 		
-		BContentCommand command = new BContentCommand();
+		command = new BContentCommand();
 		command.execute(model);
 		
 		return "content_view";
@@ -60,7 +63,7 @@ public class BoardController {
 		
 		model.addAttribute("request", request);
 		
-		BContentCommand command = new BContentCommand();
+		command = new BContentCommand();
 		command.execute(model);
 		
 		return "modify_form";
@@ -71,7 +74,7 @@ public class BoardController {
 		
 		model.addAttribute("request", request);
 		
-		BModifyCommand command = new BModifyCommand();
+		command = new BModifyCommand();
 		command.execute(model);
 		
 		return "redirect:list";
@@ -80,12 +83,9 @@ public class BoardController {
 	@RequestMapping(value = "/delete")
 	public String delete(HttpServletRequest request, Model model) {
 		
-//		BoardDao boardDao = new BoardDao();
-//		boardDao.delete(request.getParameter("bid"));
-		
 		model.addAttribute("request", request);
 		
-		BDeleteCommand command = new BDeleteCommand();
+		command = new BDeleteCommand();
 		command.execute(model);
 		
 		return "redirect:list";
