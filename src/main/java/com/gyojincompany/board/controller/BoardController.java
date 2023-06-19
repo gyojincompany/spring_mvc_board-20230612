@@ -8,6 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.gyojincompany.board.command.BContentCommand;
+import com.gyojincompany.board.command.BDeleteCommand;
+import com.gyojincompany.board.command.BListCommand;
+import com.gyojincompany.board.command.BModifyCommand;
+import com.gyojincompany.board.command.BWriteCommand;
 import com.gyojincompany.board.dao.BoardDao;
 import com.gyojincompany.board.dto.BoardDto;
 
@@ -20,14 +25,12 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value = "/write" )
-	public String write(HttpServletRequest request) {
+	public String write(HttpServletRequest request, Model model) {
 		
-		String bname = request.getParameter("bname");
-		String btitle = request.getParameter("btitle");
-		String bcontent = request.getParameter("bcontent");
+		model.addAttribute("request", request);
 		
-		BoardDao boardDao = new BoardDao();
-		boardDao.write(bname, btitle, bcontent);
+		BWriteCommand command = new BWriteCommand();
+		command.execute(model);		
 		
 		return "redirect:list";
 	}
@@ -35,11 +38,8 @@ public class BoardController {
 	@RequestMapping(value = "/list")
 	public String list(Model model) {
 		
-		BoardDao boardDao = new BoardDao();
-		ArrayList<BoardDto> boardDtos = boardDao.list();
-		
-		model.addAttribute("list", boardDtos);
-		model.addAttribute("total", boardDtos.size());
+		BListCommand command = new BListCommand();
+		command.execute(model);
 		
 		return "list";
 	}
@@ -47,12 +47,10 @@ public class BoardController {
 	@RequestMapping(value = "/content_view")
 	public String content_view(HttpServletRequest request, Model model) { 
 		
-		BoardDao boardDao = new BoardDao();
-		BoardDto boardDto = boardDao.view(request.getParameter("bid"));
-//		boardDao.uphit(request.getParameter("bid"));
+		model.addAttribute("request", request);
 		
-		
-		model.addAttribute("boardDto", boardDto);
+		BContentCommand command = new BContentCommand();
+		command.execute(model);
 		
 		return "content_view";
 	}
@@ -60,39 +58,37 @@ public class BoardController {
 	@RequestMapping(value = "/modify_form")
 	public String modify_form(HttpServletRequest request, Model model) {
 		
-		BoardDao boardDao = new BoardDao();
-		BoardDto boardDto = boardDao.view(request.getParameter("bid"));
+		model.addAttribute("request", request);
 		
-		model.addAttribute("boardDto", boardDto);
+		BContentCommand command = new BContentCommand();
+		command.execute(model);
 		
 		return "modify_form";
 	}
 	
 	@RequestMapping(value = "/modify")
-	public String modify(HttpServletRequest request) {
+	public String modify(HttpServletRequest request, Model model) {
 		
-		String btitle = request.getParameter("btitle");
-		String bcontent = request.getParameter("bcontent");
-		String bid = request.getParameter("bid");
+		model.addAttribute("request", request);
 		
-		BoardDao boardDao = new BoardDao();
-		boardDao.modify(btitle, bcontent, bid);
+		BModifyCommand command = new BModifyCommand();
+		command.execute(model);
 		
 		return "redirect:list";
 	}
 	
 	@RequestMapping(value = "/delete")
-	public String delete(HttpServletRequest request) {
+	public String delete(HttpServletRequest request, Model model) {
 		
-		BoardDao boardDao = new BoardDao();
-		boardDao.delete(request.getParameter("bid"));
+//		BoardDao boardDao = new BoardDao();
+//		boardDao.delete(request.getParameter("bid"));
+		
+		model.addAttribute("request", request);
+		
+		BDeleteCommand command = new BDeleteCommand();
+		command.execute(model);
 		
 		return "redirect:list";
 	}
-	
-	
-	
-	
-	
 	
 }
